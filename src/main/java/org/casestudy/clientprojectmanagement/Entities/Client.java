@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.io.File;
 import java.util.UUID;
 
 @Entity
@@ -28,7 +27,5 @@ public class Client {
     @Column(name = "client_description", length = 10000)
     private String clientDescription;
 
-    @Column(name = "client_agreement", updatable = false)
-    private File clientAgreement;
 
 }
