@@ -19,7 +19,7 @@ public class ClientService {
     ClientRepository clientRepository;
 
     public Client addNewClient(Client client) {
-        Optional<Client> savedClient = Optional.ofNullable(clientRepository.findByName(client.getClientName()));
+        Optional<Client> savedClient = Optional.ofNullable(clientRepository.findByClientName(client.getClientName()));
         if(savedClient.isPresent()) {
             throw new ResponseStatusException(HttpStatus.FOUND,
                     "Client with name " + client.getClientName() + " already exists");
