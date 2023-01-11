@@ -2,6 +2,7 @@ package org.casestudy.clientprojectmanagement.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
 
@@ -15,9 +16,10 @@ import java.util.UUID;
 public class Client {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(name = "id", unique = true, nullable = false)
-    private long id;
+    private String id;
 
     @Column(name = "client_name", unique = true, nullable = false, length = 1000)
     private String clientName;

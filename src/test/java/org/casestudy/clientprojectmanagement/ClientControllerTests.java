@@ -38,7 +38,7 @@ public class ClientControllerTests {
     @BeforeEach
     public void setUp() {
         client = Client.builder()
-                .id(675)
+                .id("59dcfd0f-59e4-4101-be3c-4fe6791cf52e")
                 .clientName("Jimmy Johns")
                 .clientDescription("It's Freaky Fast")
                 .build();
@@ -61,7 +61,7 @@ public class ClientControllerTests {
     public void shouldGetListOfClients() {
 
         Client client2 = Client.builder()
-                .id(679)
+                .id("22a484e4-2ca1-4e6f-a68c-801231657d5c")
                 .clientName("Wendy's")
                 .clientDescription("Mom")
                 .build();
