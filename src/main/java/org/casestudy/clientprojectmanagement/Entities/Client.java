@@ -1,10 +1,7 @@
 package org.casestudy.clientprojectmanagement.Entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
@@ -14,12 +11,13 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Client {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", unique = true, nullable = false)
-    private UUID id;
+    private long id;
 
     @Column(name = "client_name", unique = true, nullable = false, length = 1000)
     private String clientName;

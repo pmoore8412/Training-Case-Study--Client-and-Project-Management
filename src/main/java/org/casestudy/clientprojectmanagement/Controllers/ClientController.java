@@ -16,8 +16,8 @@ public class ClientController {
     ClientService clientService;
 
     @PostMapping("/new-client")
-    public void addNewClient(@RequestBody Client client) {
-        clientService.addNewClient(client);
+    public Client addNewClient(@RequestBody Client client) {
+        return clientService.addNewClient(client);
     }
 
     @GetMapping("/list-all-clients")
