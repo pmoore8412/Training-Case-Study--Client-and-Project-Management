@@ -27,8 +27,25 @@ public class ClientService {
         return clientRepository.save(client);
     }
 
+    public Client getClient(String id) {
+        return clientRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                "No client found with id: " + id));
+    }
+
     public List<Client> getAllClients() {
         return clientRepository.findAll().stream().collect(Collectors.toList());
+    }
+
+    public Client updateClientDetails(Client client) {
+        Optional<Client> updateClient = clientRepository.findById(client.getId());
+
+        if(updateClient.isPresent()) {
+            updateClient.get().setClientName(client.getClientName());
+            updateClient.get().setClientDescription(client.getClientDescription());
+            client = updateClient.get();
+        }
+
+        return clientRepository.save(client);
     }
 
 }

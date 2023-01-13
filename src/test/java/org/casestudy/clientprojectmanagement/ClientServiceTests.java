@@ -13,7 +13,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.Mockito.*;
 
 import org.mockito.InjectMocks;
@@ -22,7 +21,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-
+import java.util.Optional;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -49,7 +48,7 @@ public class ClientServiceTests {
     @DisplayName("Test should pass when a new client is successfully added")
     public void shouldAddANewClient() {
 
-        given(clientRepository.findByName(client.getClientName())).willReturn(null);
+        given(clientRepository.findByClientName(client.getClientName())).willReturn(null);
         given(clientRepository.save(client)).willReturn(client);
 
         Client testClient = clientService.addNewClient(client);
@@ -62,13 +61,23 @@ public class ClientServiceTests {
     @DisplayName("Should Throw an exception when trying to add the same client")
     public void shouldThrowExceptionWhenTryingToAddSameClient() {
 
-        given(clientRepository.findByName(client.getClientName())).willReturn(client);
+        given(clientRepository.findByClientName(client.getClientName())).willReturn(client);
 
         Assertions.assertThrows(ResponseStatusException.class ,() -> {
             clientService.addNewClient(client);
         });
 
         verify(clientRepository, never()).save(any(Client.class));
+    }
+
+    @Test
+    @DisplayName("Test should pass if client is found by id")
+    public void shouldGetClientDetails() {
+        given(clientRepository.findById(client.getId())).willReturn(Optional.of(client));
+
+        Client testClient = clientService.getClient(client.getId());
+
+        assertThat(testClient).isNotNull();
     }
 
     @Test
@@ -87,6 +96,23 @@ public class ClientServiceTests {
 
         assertThat(testClient).isNotNull();
         assertThat(testClient.size()).isEqualTo(2);
+
+    }
+
+    @Test
+    @DisplayName("Test should pass if client is updated successfully")
+    public void shouldUpdateClient() {
+
+        given(clientRepository.findById(client.getId())).willReturn(Optional.of(client));
+        given(clientRepository.save(client)).willReturn(client);
+
+        client.setClientName("Quiznos");
+        client.setClientDescription("Mmm, Mmm, Mmm, Mmm, Mmm, Toasty");
+
+        Client updateClient = clientService.updateClientDetails(client);
+
+        assertThat(updateClient.getClientName()).isEqualTo("Quiznos");
+        assertThat(updateClient.getClientDescription()).isEqualTo("Mmm, Mmm, Mmm, Mmm, Mmm, Toasty");
 
     }
 

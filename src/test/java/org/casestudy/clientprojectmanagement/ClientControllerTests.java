@@ -5,22 +5,16 @@ import org.casestudy.clientprojectmanagement.Entities.Client;
 import org.casestudy.clientprojectmanagement.Services.ClientService;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willDoNothing;
-import static org.mockito.Mockito.*;
 
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -57,6 +51,16 @@ public class ClientControllerTests {
     }
 
     @Test
+    @DisplayName("Test should pass if client is found by id")
+    public void shouldGetClientDetails() {
+        given(clientService.getClient(client.getId())).willReturn(client);
+
+        Client testClient = clientController.getClient(client.getId());
+
+        assertThat(testClient).isNotNull();
+    }
+
+    @Test
     @DisplayName("test should pass when the list of clients is returned")
     public void shouldGetListOfClients() {
 
@@ -72,6 +76,22 @@ public class ClientControllerTests {
 
         assertThat(testClient).isNotNull();
         assertThat(testClient.size()).isEqualTo(2);
+
+    }
+
+    @Test
+    @DisplayName("Test should pass if client is updated successfully")
+    public void shouldUpdateClient() {
+
+        given(clientService.updateClientDetails(client)).willReturn(client);
+
+        client.setClientName("Quiznos");
+        client.setClientDescription("Mmm, Mmm, Mmm, Mmm, Mmm, Toasty");
+
+        Client updateClient = clientController.updateClientDetails(client);
+
+        assertThat(updateClient.getClientName()).isEqualTo("Quiznos");
+        assertThat(updateClient.getClientDescription()).isEqualTo("Mmm, Mmm, Mmm, Mmm, Mmm, Toasty");
 
     }
 

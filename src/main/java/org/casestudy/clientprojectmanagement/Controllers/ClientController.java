@@ -20,9 +20,19 @@ public class ClientController {
         return clientService.addNewClient(client);
     }
 
+    @GetMapping("/{id}")
+    public Client getClient(@PathVariable(name = "id") String id) {
+        return clientService.getClient(id);
+    }
+
     @GetMapping("/list-all-clients")
     public List<Client> getAllClients() {
         return clientService.getAllClients();
+    }
+
+    @PutMapping("/update-client/{id}")
+    public Client updateClientDetails(@RequestBody Client client) {
+        return clientService.updateClientDetails(client);
     }
 
 }
