@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.util.UUID;
-
 @Entity
 @Table(name = "clients")
 @Getter
@@ -26,6 +24,9 @@ public class Client {
 
     @Column(name = "client_description", length = 10000)
     private String clientDescription;
+
+    @Column(name = "agreement_file", length = 1000)
+    private String agreementFile;
 
 
 }

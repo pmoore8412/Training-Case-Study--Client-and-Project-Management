@@ -7,11 +7,11 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "client_agreement_files")
+@Table(name = "agreement_files")
 @Getter
 @Setter
 @NoArgsConstructor
-public class ClientAgreementFile {
+public class AgreementFile {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -25,7 +25,7 @@ public class ClientAgreementFile {
     @Lob
     private byte[] data;
 
-    public ClientAgreementFile(String name, String type, byte[] data) {
+    public AgreementFile(String name, String type, byte[] data) {
         this.name = name;
         this.type = type;
         this.data = data;

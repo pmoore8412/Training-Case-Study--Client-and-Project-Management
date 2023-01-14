@@ -4,7 +4,9 @@ import org.casestudy.clientprojectmanagement.Entities.Client;
 import org.casestudy.clientprojectmanagement.Services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
