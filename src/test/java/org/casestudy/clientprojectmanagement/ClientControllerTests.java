@@ -34,6 +34,8 @@ public class ClientControllerTests {
         client = Client.builder()
                 .id("59dcfd0f-59e4-4101-be3c-4fe6791cf52e")
                 .clientName("Jimmy Johns")
+                .clientPOC("Jimmy John")
+                .clientPOCEmail("jimjohn@jimmyjohns.com")
                 .clientDescription("It's Freaky Fast")
                 .build();
     }
@@ -68,6 +70,8 @@ public class ClientControllerTests {
                 .id("22a484e4-2ca1-4e6f-a68c-801231657d5c")
                 .clientName("Wendy's")
                 .clientDescription("Mom")
+                .clientPOC("John Doe")
+                .clientDescription("Mom")
                 .build();
 
         given(clientService.getAllClients()).willReturn(List.of(client, client2));
@@ -83,15 +87,15 @@ public class ClientControllerTests {
     @DisplayName("Test should pass if client is updated successfully")
     public void shouldUpdateClient() {
 
-        given(clientService.updateClientDetails(client)).willReturn(client);
+        given(clientService.updateClientDetails(client.getId(), client)).willReturn(client);
 
-        client.setClientName("Quiznos");
-        client.setClientDescription("Mmm, Mmm, Mmm, Mmm, Mmm, Toasty");
+        client.setClientPOC("Mr Sub");
+        client.setClientPOCEmail("mrsub@quiznos.com");
 
-        Client updateClient = clientController.updateClientDetails(client);
+        Client updateClient = clientController.updateClientDetails(client.getId(), client);
 
-        assertThat(updateClient.getClientName()).isEqualTo("Quiznos");
-        assertThat(updateClient.getClientDescription()).isEqualTo("Mmm, Mmm, Mmm, Mmm, Mmm, Toasty");
+        assertThat(updateClient.getClientPOC()).isEqualTo("Mr Sub");
+        assertThat(updateClient.getClientPOCEmail()).isEqualTo("mrsub@quiznos.com");
 
     }
 

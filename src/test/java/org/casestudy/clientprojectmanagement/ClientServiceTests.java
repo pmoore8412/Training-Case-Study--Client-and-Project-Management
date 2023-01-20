@@ -40,6 +40,8 @@ public class ClientServiceTests {
         client = Client.builder()
                 .id("59dcfd0f-59e4-4101-be3c-4fe6791cf52e")
                 .clientName("Jimmy Johns")
+                .clientPOC("Jimmy John")
+                .clientPOCEmail("jimjohn@jimmyjohns.com")
                 .clientDescription("It's Freaky Fast")
                 .build();
     }
@@ -88,6 +90,8 @@ public class ClientServiceTests {
                 .id("22a484e4-2ca1-4e6f-a68c-801231657d5c")
                 .clientName("Wendy's")
                 .clientDescription("Mom")
+                .clientPOC("John Doe")
+                .clientPOCEmail("jd@wendys.com")
                 .build();
 
         given(clientRepository.findAll()).willReturn(List.of(client, client2));
@@ -106,13 +110,13 @@ public class ClientServiceTests {
         given(clientRepository.findById(client.getId())).willReturn(Optional.of(client));
         given(clientRepository.save(client)).willReturn(client);
 
-        client.setClientName("Quiznos");
-        client.setClientDescription("Mmm, Mmm, Mmm, Mmm, Mmm, Toasty");
+        client.setClientPOC("Mr Sub");
+        client.setClientPOCEmail("mrsub@quiznos.com");
 
-        Client updateClient = clientService.updateClientDetails(client);
+        Client updateClient = clientService.updateClientDetails(client.getId(), client);
 
-        assertThat(updateClient.getClientName()).isEqualTo("Quiznos");
-        assertThat(updateClient.getClientDescription()).isEqualTo("Mmm, Mmm, Mmm, Mmm, Mmm, Toasty");
+        assertThat(updateClient.getClientPOC()).isEqualTo("Mr Sub");
+        assertThat(updateClient.getClientPOCEmail()).isEqualTo("mrsub@quiznos.com");
 
     }
 

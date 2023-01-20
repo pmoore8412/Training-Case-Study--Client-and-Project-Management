@@ -22,11 +22,16 @@ public class Client {
     @Column(name = "client_name", unique = true, nullable = false, length = 1000)
     private String clientName;
 
+    @Column(name = "point_of_contact", nullable = false, length = 1000)
+    private String clientPOC;
+
+    @Column(name = "poc_email", nullable = false, length = 1000)
+    private String clientPOCEmail;
+
     @Column(name = "client_description", length = 10000)
     private String clientDescription;
 
-    @Column(name = "agreement_file", length = 1000)
+    @Column(name = "client_agreement_file", length = 1000)
     private String agreementFile;
-
 
 }

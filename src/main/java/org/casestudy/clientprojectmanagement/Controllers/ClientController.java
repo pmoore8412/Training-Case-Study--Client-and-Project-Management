@@ -4,9 +4,7 @@ import org.casestudy.clientprojectmanagement.Entities.Client;
 import org.casestudy.clientprojectmanagement.Services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -33,8 +31,12 @@ public class ClientController {
     }
 
     @PutMapping("/update-client/{id}")
-    public Client updateClientDetails(@RequestBody Client client) {
-        return clientService.updateClientDetails(client);
+    public Client updateClientDetails(@PathVariable(name = "id") String id, @RequestBody Client client) {
+        return clientService.updateClientDetails(id, client);
     }
 
+    @DeleteMapping("/remove-client/{id}")
+    public void removeClient(@PathVariable(name = "id") String id) {
+        clientService.removeClient(id);
+    }
 }
