@@ -69,11 +69,12 @@ public class UserService {
 
     }
 
-    public User adminUpdateUser(String id, User user) {
+    public User adminUpdateUser(String id) {
         Optional<User> adminUpdate = userRepository.findById(id);
+        User user = new User();
 
         if(adminUpdate.isPresent()) {
-            adminUpdate.get().setAdmin(user.isAdmin());
+            adminUpdate.get().setAdmin(true);
 
             user = adminUpdate.get();
         }

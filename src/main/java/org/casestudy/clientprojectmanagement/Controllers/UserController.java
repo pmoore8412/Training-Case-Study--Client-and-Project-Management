@@ -41,8 +41,8 @@ public class UserController {
     }
 
     @PutMapping("/user/admin/update/{id}")
-    public User adminUpdateUser(@PathVariable(name = "id") String id, @RequestBody User user) {
-        return userService.adminUpdateUser(id, user);
+    public User adminUpdateUser(@PathVariable(name = "id") String id) {
+        return userService.adminUpdateUser(id);
     }
 
     @DeleteMapping("/user/remove/{id}")
